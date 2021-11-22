@@ -1,0 +1,110 @@
+@startuml
+package java.fx.application{
+class Application
+}
+package java.fx{
+class initializable
+}
+package baseline{
+package controllers{
+class ManagerController{
+FileChooser fileChooser = new FileChooser();
+public ObservableList<Item> list;
+Item item = new Item(String, String, String);
+__
+-menuItem loadTSVButton;
+-menuItem loadHTMLButton;
+-menuItem loadJSONButton;
+-menuItem saveTSV;
+-menuItem saveHTML;
+-menuItem saveJSON;
+-menuItem deleteAllButton;
+
+-label nameErrorLabel;
++TextField nameText;
+-label serialErrorLabel;
++TextField serialText;
+-label priceErrorLabel;
++TextField priceText;
+
+-TextField sortNameText;
+-TextField sortSerialText;
+-Button searchClear;
+
+-TableView listTable;
+-TableColumn<Item,String> colName;
+-TableColumn<Item,String> colSerial;
+-TableColumn<Item,String> colPrice;
+
+-Button removeItemButton;
+-Button addButton;
+
+-addPressed (ActionEvent event);
++addItem();
+-removeSelectedItem(ActionEvent event);
++removeItem();
+-clearPressed(ActionEvent event);
++clearAllItems();
+
+-void htmlPressed(ActionEvent event);
+-void jsonPressed(ActionEvent event);
+-void tsvPressed(ActionEvent event);
++saveFile(String);
++saveAsTSV(file);
++saveAsHTML(file);
++saveAsJSON(file);
+
+-void loadHtmlPressed(ActionEvent event);
+-void loadJsonPressed(ActionEvent event);
+-void loadTsvPressed(ActionEvent event);
++loadFile(String);
++loadAsTSV(file);
++loadAsHTML(file);
++loadAsJSON(file);
+
+-searchClearPressed(ActionEvent event);
++clearSearchBars();
+
+-sortNameTyped(ActionEvent event);
++sortNames(String);
+-sortSerialTyped(ActionEvent event);
++sortSerial(String);
++initialize(URL, Resource Bundle);
++initalizeTable();
++uniqueSerial(String);
+}
+}
+package functions{
+
+class Item{
+String name;
+String serial;
+String price;
+
++getName();
++setName(String)
++getSerial();
++setSerial(String);
++getPrice();
++setPrice(String);
+
++nameRegex(String);
++serialRegex(String);
++priceRegex(String);
+
+}
+}
+class InventoryManagementApplication{
+ Map<String, Scene> sceneMap = new HashMap<>();
+ +start(stage);
+ +main(String[] args);
+ +addScenes();
+
+}
+}
+Application <|-- InventoryManagementApplication
+InventoryManagementApplication <|-- ManagerController
+initializable -- ManagerController
+ManagerController -- Item
+
+@enduml
